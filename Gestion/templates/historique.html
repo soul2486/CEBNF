@@ -1,0 +1,97 @@
+{% extends 'base.html' %}
+		   
+		   {% block historique %}
+		  
+		    <div class="container-xl">
+     
+			    
+			    <div class="row g-3 mb-4 align-items-center justify-content-between">
+				    <div class="col-auto">
+			            <h1 class="app-page-title mb-0">Historique de Payement de {{eleve.nom}} {{eleve.prenom}}</h1>
+				    </div>
+				    
+							    <div class="col-auto">
+								    <button class="btn app-btn-primary" data-bs-toggle="modal"
+                          data-bs-target="#ajoutpaiement"><svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-upload me-2" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+  <path fill-rule="evenodd" d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z"></path>
+  <path fill-rule="evenodd" d="M7.646 1.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708L8.5 2.707V11.5a.5.5 0 0 1-1 0V2.707L5.354 4.854a.5.5 0 1 1-.708-.708l3-3z"></path>
+</svg>Nouveau Payement</button>
+							   
+				    </div><!--//col-auto-->
+			    </div>
+			    
+<div class="row g-6 mb-4">
+{% for x in paiements %}
+                    <div class="col-6 col-lg-3 mb-2">
+					    <div class="app-card app-card-stat shadow-sm h-100">
+						    <div class="app-card-body p-3 p-lg-4">
+							    <h4 class="stats-type mb-3">{{x.paiements.date_paiement}}</h4>
+							     <div class="mb-0 h5">{{x.montant}} FCFA</div>
+							    {% comment %}<div class="stats-meta">New</div> {% endcomment %}
+						    </div><!--//app-card-body-->
+						    <a class="app-card-link-mask" href="{% url 'Eleves_salle' x.paiements.pk %}"></a>
+					    </div><!--//app-card-->
+				    </div><!--//col-->
+{% endfor %}
+                 </div><!--//row-->
+               
+               <div class="row g-6 mb-4 justify-content-center">
+                    <div class="col-6 col-lg-3 mb-2  ">
+					    <div class="app-card app-card-stat shadow-sm h-100">
+						    <div class="app-card-body p-3 p-lg-4" style="background-color: #15a3626e;">
+							    <h4 class="stats-type mb-3">TOTAL</h4>
+							     <div class="mb-0 h5">{{total}} FCFA</div>
+							    {% comment %}<div class="stats-meta">New</div> {% endcomment %}
+						    </div><!--//app-card-body-->
+						    <a class="app-card-link-mask" href="#"></a>
+					    </div><!--//app-card-->
+				    </div><!--//col-->
+
+                 </div><!--//row-->
+			    
+		 </div><!--//container-fluid-->
+
+         <div class="modal fade" x-show="false" id="ajoutpaiement" tabindex="-1" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="exampleModalLabel1">Ajouter un paiement</h5>
+                      <button
+                        type="button"
+                        class="btn-close"
+                        data-bs-dismiss="modal"
+                        aria-label="Close"
+                      ></button>
+                    </div>
+                    <div class="modal-body">
+                      
+                    <form id="formAccountSettings" method="POST" enctype="multipart/form-data" >
+
+                        {% csrf_token %}
+                        <div class="row">
+                        <div class="col mb-3">
+                          <label for="nameBasic" class="form-label">Nom</label>
+                          <input type="text" id="nameBasic" name="nom" class="form-control" disabled="" placeholder="{{eleve.nom}} {{eleve.prenom}}" /> 
+                        </div>
+                        
+                        </div>
+                      <div class="col mb-3">
+                          <label for="nameBasic" class="form-label">Montant</label>
+                          <input type="number" id="nameBasic" name="montant" class="form-control" placeholder="Entrer le montant payé" /> 
+                        </div>
+                      <div class="col mb-3">
+                          <label for="nameBasic" class="form-label">Date de Paiement</label>
+                          <input type="date" id="nameBasic" name="datePaiement" class="form-control" placeholder="Entrer la date de paiement" /> 
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn app-btn-danger" data-bs-dismiss="modal">
+                        Retour
+                      </button>
+                      <button type="submit" class="btn app-btn-primary">Enregistrer</button>
+                    </div>
+                  </form>
+                  </div>
+                </div>
+              </div>
+ {% endblock historique %}

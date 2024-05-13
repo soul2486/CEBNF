@@ -1,0 +1,181 @@
+{% extends 'base.html' %}
+		   {% block title %}
+		   Etat de Paiement de {{ classe.libele}}
+		   {% endblock title %}
+		   {% block eleve_classe %}
+		  
+		    <div class="container-xl">
+			    
+			    <h1 class="app-page-title">Eleves de {{ classe.libele}} </h1>
+
+
+			    <div class="row g-6 mb-4">
+
+                    <nav id="orders-table-tab" class="orders-table-tab app-nav-tabs nav shadow-sm flex-column flex-sm-row mb-4">
+				    <a class="flex-sm-fill text-sm-center nav-link active" id="orders-all-tab" data-bs-toggle="tab" href="#orders-all" role="tab" aria-controls="orders-all" aria-selected="true">All</a>
+				    <a class="flex-sm-fill text-sm-center nav-link"  id="orders-paid-tab" data-bs-toggle="tab" href="#orders-paid" role="tab" aria-controls="orders-paid" aria-selected="false">Paid</a>
+				    <a class="flex-sm-fill text-sm-center nav-link" id="orders-pending-tab" data-bs-toggle="tab" href="#orders-pending" role="tab" aria-controls="orders-pending" aria-selected="false">Pending</a>
+				    <a class="flex-sm-fill text-sm-center nav-link" id="orders-cancelled-tab" data-bs-toggle="tab" href="#orders-cancelled" role="tab" aria-controls="orders-cancelled" aria-selected="false">Cancelled</a>
+				</nav>
+				
+				
+				<div class="tab-content" id="orders-table-tab-content">
+			        <div class="tab-pane fade show active" id="orders-all" role="tabpanel" aria-labelledby="orders-all-tab">
+					    <div class="app-card app-card-orders-table shadow-sm mb-5 " style="margin-right: -15px;">
+						    <div class="app-card-body">
+							    <div class="table-responsive">
+							        <table class="table mx-0 app-table-hover mb-0 text-left" id="eleves">
+										<thead>
+											<tr class="justify-content-center ">
+												<th class="cell">id</th>
+												<th class="cell">Nom et Prenom</th>
+												<th class="cell" >Classe</th>
+												
+												<th class="cell">Total</th>
+												<th class="cell"></th>
+											</tr>
+										</thead>
+										<tbody>
+                                        {% for x in data %}
+											
+											<tr class="justify-content-center text-center">
+												<td class="cell">{{x.numero}}</td>
+												<td class="cell">{{x.eleve.nom}} {{x.eleve.prenom}} </td>
+												<td class="cell" > {{x.eleve.classe.libele}} </td>
+												{% comment %} <td class="cell"{% if  x.tranche.2 == '2'  %}style="background-color:#01f91c36;"{% else %}style="background-color:#ff050529;" {% endif %}>{{x.tranche.2}}</span></td>
+												<td class="cell" {% if  x.tranche.3 > '10 000'  %}style="background-color:#01f91c36;"{% else %}style="background-color:#ff050529;" {% endif %}>{{x.tranche.3}}</span></td> {% endcomment %}
+
+												<td class="cell">{{x.total}}</td>
+												<td class="cell"><a class="btn-sm app-btn-secondary" ">Voir Plus</a></td>
+											</tr>  
+                                            {% endfor %}
+											{% comment %} <tr>
+												<td class="cell">#15345</td>
+												<td class="cell"><span class="truncate">Consectetur adipiscing elit</span></td>
+												<td class="cell">Dylan Ambrose</td>
+												<td class="cell"><span class="cell-data">16 Oct</span><span class="note">03:16 AM</span></td>
+												<td class="cell"><span class="badge bg-warning">Pending</span></td>
+												<td class="cell">$96.20</td>
+												<td class="cell"><a class="btn-sm app-btn-secondary" href="#">View</a></td>
+											</tr>
+											<tr>
+												<td class="cell">#15344</td>
+												<td class="cell"><span class="truncate">Pellentesque diam imperdiet</span></td>
+												<td class="cell">Teresa Holland</td>
+												<td class="cell"><span class="cell-data">16 Oct</span><span class="note">01:16 AM</span></td>
+												<td class="cell"><span class="badge bg-success">Paid</span></td>
+												<td class="cell">$123.00</td>
+												<td class="cell"><a class="btn-sm app-btn-secondary" href="#">View</a></td>
+											</tr>
+											
+											<tr>
+												<td class="cell">#15343</td>
+												<td class="cell"><span class="truncate">Vestibulum a accumsan lectus sed mollis ipsum</span></td>
+												<td class="cell">Jayden Massey</td>
+												<td class="cell"><span class="cell-data">15 Oct</span><span class="note">8:07 PM</span></td>
+												<td class="cell"><span class="badge bg-success">Paid</span></td>
+												<td class="cell">$199.00</td>
+												<td class="cell"><a class="btn-sm app-btn-secondary" href="#">View</a></td>
+											</tr>
+											
+											<tr>
+												<td class="cell">#15342</td>
+												<td class="cell"><span class="truncate">Justo feugiat neque</span></td>
+												<td class="cell">Reina Brooks</td>
+												<td class="cell"><span class="cell-data">12 Oct</span><span class="note">04:23 PM</span></td>
+												<td class="cell"><span class="badge bg-danger">Cancelled</span></td>
+												<td class="cell">$59.00</td>
+												<td class="cell"><a class="btn-sm app-btn-secondary" href="#">View</a></td>
+											</tr>
+											
+											<tr>
+												<td class="cell">#15341</td>
+												<td class="cell"><span class="truncate">Morbi vulputate lacinia neque et sollicitudin</span></td>
+												<td class="cell">Raymond Atkins</td>
+												<td class="cell"><span class="cell-data">11 Oct</span><span class="note">11:18 AM</span></td>
+												<td class="cell"><span class="badge bg-success">Paid</span></td>
+												<td class="cell">$678.26</td>
+												<td class="cell"><a class="btn-sm app-btn-secondary" href="#">View</a></td>
+											</tr> {% endcomment %}
+		
+										</tbody>
+									</table>
+						        </div><!--//table-responsive-->
+						       
+						    </div><!--//app-card-body-->		
+						</div><!--//app-card-->
+						<nav class="app-pagination">
+							<ul class="pagination justify-content-center">
+								<li class="page-item disabled">
+									<a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
+							    </li>
+								<li class="page-item active"><a class="page-link" href="#">1</a></li>
+								<li class="page-item"><a class="page-link" href="#">2</a></li>
+								<li class="page-item"><a class="page-link" href="#">3</a></li>
+								<li class="page-item">
+								    <a class="page-link" href="#">Next</a>
+								</li>
+							</ul>
+						</nav><!--//app-pagination-->
+
+                </div><!--//row-->
+			    
+		 </div><!--//container-fluid-->
+<script>
+  $('#eleves').DataTable({
+    paging:true,
+    searching:true,
+    lengthChange:false,
+    autoWidth:true,
+    pageLength:20,
+    bSort:true,
+    "columnDefs": [{
+        "targets":3,
+        "orderable":false,
+
+    }],
+    bInfo:false,
+    
+    dom: 'lBfrtip',
+    buttons:[
+      {
+        extend:'copy',
+        text:'<i class="fas fa-clone"></i>',
+        className:'btn btn-primary px-2 mt-2 mb-0 ms-2',
+        titleAttr:'Copy',
+        exportOptions:{
+          columns:[0, 1, 2, 3],
+        }
+      },
+      {
+        extend:'excel',
+        text:'<i class="fas fa-file-excel"></i>',
+        className:'btn btn-primary px-2 mt-2 mb-0 ms-2',
+        titleAttr:'Excel',
+        exportOptions:{
+          columns:[0, 1, 2, 3],
+        }
+      },
+      {
+        extend:'print',
+        text:'<i class="fas fa-print"></i>',
+        className:'btn btn-primary px-2 mt-2 mb-0 ms-2 mx-auto',
+        titleAttr:'Print',
+        exportOptions:{
+          columns:[0, 1, 2, 3, 4, 5],
+        }
+      },
+      {
+        extend:'pdf',
+        text:'<i class="fas fa-file-pdf"></i>',
+        className:'btn btn-primary px-2 mt-2 mb-0 ms-2 mx-auto',
+        titleAttr:'PDF',
+        exportOptions:{
+          columns:[0, 1, 2, 3, 4, 5],
+        }
+      },
+    ]
+  });
+  $('#favoris').DataTable();
+</script>
+ {% endblock eleve_classe %}
