@@ -15,7 +15,7 @@
 				    <a class="flex-sm-fill text-sm-center nav-link active" id="orders-all-tab" data-bs-toggle="tab" href="#orders-all" role="tab" aria-controls="orders-all" aria-selected="true">All</a>
 				    <a class="flex-sm-fill text-sm-center nav-link"  id="orders-paid-tab" data-bs-toggle="tab" href="#orders-paid" role="tab" aria-controls="orders-paid" aria-selected="false">Paid</a>
 				    <a class="flex-sm-fill text-sm-center nav-link" id="orders-pending-tab" data-bs-toggle="tab" href="#orders-pending" role="tab" aria-controls="orders-pending" aria-selected="false">Pending</a>
-				    <a class="flex-sm-fill text-sm-center nav-link" id="orders-cancelled-tab" data-bs-toggle="tab" href="#orders-cancelled" role="tab" aria-controls="orders-cancelled" aria-selected="false">Cancelled</a>
+				    <a class="flex-sm-fill text-sm-center nav-link" id="orders-cancelled-tab" data-bs-toggle="tab" href="#orders-cancelled" role="tab" aria-controls="orders-cancelled" aria-selected="false">List of class</a>
 				</nav>
 				
 				
@@ -201,6 +201,47 @@
 						</div><!--//app-card-->
 			        </div><!--//tab-pane-->
 			    
+ 		
+		 <div class="tab-pane fade" id="orders-cancelled" role="tabpanel" aria-labelledby="orders-cancelled-tab">					    <div class="app-card app-card-orders-table mb-5">
+						    <div class="app-card-body">
+							    <div class="table-responsive">
+								    
+							        <table class="table mb-0 text-left" id="lists">
+										<thead>
+											<tr>
+												<th class="cell">id</th>
+												<th class="cell">Nom et Prenom</th>
+												{% comment %} <th class="cell" >Tranche 1</th>
+												<th class="cell">Tranche 2</th>
+												<th class="cell">Tranche 3</th> {% endcomment %}
+												{% comment %} <th class="cell">Total</th>
+												<th class="cell">Reste (fin Tranches)</th> {% endcomment %}
+												<th class="cell"></th>                                                                                                                                                                          
+											</tr>
+										</thead>
+										<tbody>
+										{% for x in non_2 %}
+											<tr>
+												<td class="cell">{{x.num}}</td>
+												<td class="cell">{{x.eleve.nom}} {{x.eleve.prenom}} </td>
+												{% comment %} <td class="cell" > {{x.tranche.1}} </td>
+												<td class="cell">{{x.tranche.2}}</span></td>
+												<td class="cell" >{{x.tranche.3}}</span></td> {% endcomment %}
+
+												{% comment %} <td class="cell">{{x.total}}</td>
+												<td class="cell" >{{x.reste}}</span></td> {% endcomment %}
+												<td class="cell"><a class="btn-sm app-btn-secondary" href="{% url 'historique' x.eleve.id %}">Voir Plus</a></td>
+											</tr>
+											
+											{% endfor %}
+		
+										</tbody>
+									</table>
+						        </div><!--//table-responsive-->
+						    </div><!--//app-card-body-->		
+						</div><!--//app-card-->
+			        </div><!--//tab-pane-->
+			    </div>
 		 </div><!--//container-fluid-->
 <script>
   $('#eleves').DataTable({
@@ -312,6 +353,61 @@
       },
     ]
   });
-  $('#favoris').DataTable();
+  
+  $('#lists').DataTable({
+    paging:true,
+    searching:true,
+    lengthChange:false,
+    autoWidth:true,
+    pageLength:20,
+    bSort:true,
+    "columnDefs": [{
+        "targets":0,
+        "orderable":false,
+
+    }],
+    bInfo:false,
+    
+    dom: 'lBfrtip',
+    buttons:[
+      {
+        extend:'copy',
+        text:'<i class="fas fa-clone"></i>',
+        className:'btn btn-primary px-2 mt-2 mb-0 ms-2',
+        titleAttr:'Copy',
+        exportOptions:{
+          columns:[0, 1],
+        }
+      },
+      {
+        extend:'excel',
+        text:'<i class="fas fa-file-excel"></i>',
+        className:'btn btn-primary px-2 mt-2 mb-0 ms-2',
+        titleAttr:'Excel',
+        exportOptions:{
+          columns:[0, 1],
+        }
+      },
+      {
+        extend:'print',
+        text:'<i class="fas fa-print"></i>',
+        className:'btn btn-primary px-2 mt-2 mb-0 ms-2 mx-auto',
+        titleAttr:'Print',
+        exportOptions:{
+          columns:[0, 1],
+        }
+      },
+      {
+        extend:'pdf',
+        text:'<i class="fas fa-file-pdf"></i>',
+        className:'btn btn-primary px-2 mt-2 mb-0 ms-2 mx-auto',
+        titleAttr:'PDF',
+        exportOptions:{
+          columns:[0, 1],
+        }
+      },
+    ]
+  });
+  
 </script>
  {% endblock eleve_classe %}
